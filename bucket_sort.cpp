@@ -1,3 +1,11 @@
+//Worst Case Complexity in time: O(n^2)
+//Average Case Complexity in time: O(n)
+//Best Case Complexity in time: O(n+k)
+//Space Complexity: O(n)
+//Bucket Sort Applications
+//Bucket sort is used when:
+//input is uniformly distributed over a range.
+//there are floating point values
 #include <iostream>
 #include <vector>
 #include <algorithm>
@@ -18,18 +26,21 @@ void BucketSort(vector<double> &vec)
     int len = vec.size();
     vector<double> buckets[len];
 
-    for (int i = 0; i < vec.size(); i++)
+    //分进相应的桶里
+    for (int i = 0; i < len; i++)
     {
-        int index = len * vec[i];
+        int index = 10 * vec[i];
         buckets[index].push_back(vec[i]);
     }
 
     int k = 0;
+    //排序每个桶并把在前面的桶依次放进原来数组里
     for (int i = 0; i < len; i++)
     {
         sort(buckets[i].begin(), buckets[i].end());
 
-        for (int j = 0; j < buckets[i].size();)
+        int temp_size = buckets[i].size();
+        for (int j = 0; j < temp_size;)
         {
             vec[k++] = buckets[i][j++];
         }

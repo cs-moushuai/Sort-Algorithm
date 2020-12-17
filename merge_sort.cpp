@@ -1,3 +1,11 @@
+//Worst Case Complexity in time: O(n^2)
+//Average Case Complexity in time: O(n*log n)
+//Best Case Complexity in time: O(n*log n)
+//Space Complexity: O(n*log n)
+//Quicksort Applications:
+//the programming language is good for recursion
+//time complexity matters
+//space complexity matters
 #include <iostream>
 #include <vector>
 #include <algorithm>
@@ -15,6 +23,7 @@ void print(vector<int> &vec)
 
 void Merge(vector<int> &vec, int left, int middle, int right)
 {
+    //left~middle, middle+1~right合并
     vector<int> left_vec(vec.begin() + left, vec.begin() + middle + 1);
     vector<int> right_vec(vec.begin() + middle + 1, vec.begin() + right + 1);
     int left_len = middle - left + 1;
@@ -23,6 +32,7 @@ void Merge(vector<int> &vec, int left, int middle, int right)
     int i = 0, j = 0;
     int k = left;
 
+    //优先把两个数组里小的拷贝进来
     while (i < left_len && j < right_len)
     {
         if (left_vec[i] < right_vec[j])
@@ -35,6 +45,7 @@ void Merge(vector<int> &vec, int left, int middle, int right)
         }
     }
 
+    //剩余项拷贝进来
     while (i < left_len)
     {
         vec[k++] = left_vec[i++];
@@ -50,8 +61,11 @@ void MergeSortImplement(vector<int> &vec, int left, int right)
     if (left < right)
     {
         int middle = (left + right) / 2;
+        //left~middle的分割
         MergeSortImplement(vec, left, middle);
+        //middle+1~right的分割
         MergeSortImplement(vec, middle + 1, right);
+        //合并left~middle,middle+1~right到left~right
         Merge(vec, left, middle, right);
     }
 
