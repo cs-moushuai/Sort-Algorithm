@@ -11,9 +11,19 @@
 
 using namespace std;
 
+void print(vector<int> &vec)
+{
+    for_each(vec.begin(), vec.end(), [](int i)
+    {
+        cout << i << " ";
+    });
+    cout << endl;
+}
+
 void InsertionSort(vector<int> &vec)
 {
-    for (int i = 1; i < vec.size(); i++)
+    int len = vec.size();
+    for (int i = 1; i < len; i++)
     {
         //空位下标为i, 空位值为temp
         int gap = i;
@@ -39,30 +49,17 @@ int main(void)
     }
 
     cout << "Before sort:          ";
-    for (auto i : vec)
-    {
-        cout << i << " ";
-    }
-    cout << endl;
+    print(vec);
 
     vector<int> vec2 = vec;
     sort(vec2.begin(), vec2.end());
     cout << "Use generic function: ";
-    for_each(vec2.begin(), vec2.end(), [](int i)
-    {
-        cout << i << " ";
-    });
-    cout << endl;
+    print(vec2);
 
     InsertionSort(vec);
 
     cout << "Use hand-by function: ";
-    for_each(vec.begin(), vec.end(), [](int i)
-    {
-        cout << i << " ";
-    });
-
-    cout << endl;
+    print(vec);
 
     return 0;
 }
