@@ -15,7 +15,8 @@ using namespace std;
 
 void InsertionSort(vector<int> &vec, int increment)
 {
-    for (int i = increment; i < vec.size(); i++)
+    int len = vec.size();
+    for (int i = increment; i < len; i++)
     {
         int gap = i;
         int temp = vec[i];

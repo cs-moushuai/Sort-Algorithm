@@ -20,40 +20,36 @@ void print(vector<int> &vec)
     cout << endl;
 }
 
-void CountSort(vector<int> &vec)
+void CountSort(vector<int> &arr)
 {
-    int len = vec.size();
-    int max = vec[0];
-    for (int i = 1; i < len; i++)
-    {
-        if (vec[i] > max)
-        {
-            max = vec[i];
-        }
-    }
+    auto max_iter = max_element(arr.begin(), arr.end());
+    int len = *max_iter + 1;
 
     //创建一个max+1(包括0下标)的数组存储vec里元素出现的个数
-    vector<int> count_arr(max + 1, 0);
-    for (int i = 0; i < len; i++)
+    vector<int> counts(len, 0);
+    for (auto i : arr)
     {
-        count_arr[vec[i]]++;
+        counts[i]++;
     }
 
     //对count数组安排元素结束下标为count[i]-1
-    for (int i = 1; i <= max; i++)
+    for (int i = 1; i < len; i++)
     {
-        count_arr[i] += count_arr[i - 1];
+        counts[i] += counts[i - 1];
     }
 
     //根据原数组找到count里对应的数并-1得到结束下标,并将里面的数减一
-    vector<int> output(len);
-    for (int i = len - 1; i >= 0; i--)
+    //len-1~0,0~len-1两种遍历都行
+    //但由于基于count sort的radix sort需要len-1~0则一般用这种方式
+    vector<int> output(arr);
+    int len_arr = arr.size();
+    for (int i = len_arr - 1; i >= 0; i--)
     {
-        output[count_arr[vec[i]] - 1] = vec[i];
-        count_arr[vec[i]]--;
+        output[counts[arr[i]] - 1] = arr[i];
+        counts[arr[i]]--;
     }
     //重赋值
-    vec = output;
+    arr = output;
 
 }
 

@@ -6,9 +6,19 @@ using namespace std;
 
 constexpr int kCutOff = 4;
 
+void print(vector<int> &vec)
+{
+    for_each(vec.begin(), vec.end(), [](int i)
+    {
+        cout << i << " ";
+    });
+    cout << endl;
+}
+
 int Medium(vector<int> &vec, int left, int right)
 {
     int center = (left + right) / 2;
+    // care for the sequence of comparision
     if(vec[left] > vec[center])
     {
         swap(vec[left], vec[center]);
@@ -106,17 +116,18 @@ int QuickSelectImplement(vector<int> &vec, int kth_lowest_value, int left, int r
 
 int QuickSelect(vector<int> &vec, int kth_lowest_value)
 {
-    if (kth_lowest_value < 1 || kth_lowest_value > vec.size())
+    int len = vec.size();
+    if (kth_lowest_value < 1 || kth_lowest_value > len)
     {
-        throw std::domain_error(string("The kth_lowest_value is invalid!   (1~") + to_string(vec.size()) + string(") \nyour input is ") + to_string(kth_lowest_value));
+        throw std::out_of_range(string("The kth_lowest_value is invalid!   (1~") + to_string(vec.size()) + string(") \nyour input is ") + to_string(kth_lowest_value));
     }
-    if(vec.size() == 1)
+    if (len == 1)
     {
         return vec[0];
     }
 
     vector<int> temp = vec;
-    return QuickSelectImplement(temp, kth_lowest_value - 1, 0, vec.size() - 1);
+    return QuickSelectImplement(temp, kth_lowest_value - 1, 0, len - 1);
 }
 
 int main(void)
@@ -130,31 +141,17 @@ int main(void)
     }
 
     cout << "Before sort:          ";
-    for (auto i : vec)
-    {
-        cout << i << " ";
-    }
-    cout << endl;
+    print(vec);
 
     vector<int> vec2 = vec;
     sort(vec2.begin(), vec2.end());
     cout << "Use generic function: ";
-    for_each(vec2.begin(), vec2.end(), [](int i)
-    {
-        cout << i << " ";
-    });
-    cout << endl;
+    print(vec2);
 
     QuickSort(vec);
 
     cout << "Use hand-by function: ";
-    for_each(vec.begin(), vec.end(), [](int i)
-    {
-        cout << i << " ";
-    });
-
-    cout << endl;
-
+    print(vec);
     int i = 4;
     try
     {

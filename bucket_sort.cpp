@@ -27,10 +27,10 @@ void BucketSort(vector<double> &vec)
     vector<double> buckets[len];
 
     //分进相应的桶里
-    for (int i = 0; i < len; i++)
+    for (auto i: vec)
     {
-        int index = 10 * vec[i];
-        buckets[index].push_back(vec[i]);
+        int index = len * i;
+        buckets[index].push_back(i);
     }
 
     int k = 0;
@@ -38,11 +38,9 @@ void BucketSort(vector<double> &vec)
     for (int i = 0; i < len; i++)
     {
         sort(buckets[i].begin(), buckets[i].end());
-
-        int temp_size = buckets[i].size();
-        for (int j = 0; j < temp_size;)
+        for (auto j: buckets[i])
         {
-            vec[k++] = buckets[i][j++];
+            vec[k++] = j;
         }
     }
 
