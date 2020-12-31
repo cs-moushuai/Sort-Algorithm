@@ -1,21 +1,27 @@
 #!/usr/bin/env python3
 
+def medium(arr, left, right):
+    middle = (left + right) // 2
+    if arr[left] > arr[middle]:
+        arr[left], arr[middle] = arr[middle], arr[left]
+    if arr[left] > arr[right]:
+        arr[left], arr[right] = arr[right], arr[left]
+    if arr[left] > arr[right]:
+        arr[left], arr[right] = arr[right], arr[left]
+    arr[right-1], arr[middle] = arr[middle], arr[right-1]
+    return right-1
+
 
 def partition(arr, left, right):
     pivot = right
     right -= 1
 
-    while True:
-        while left < right and arr[left] < arr[pivot]:
+    for left in range(left, right):
+        if arr[left] <= arr[pivot]:
             left += 1
-        while left < right and arr[right] > arr[pivot]:
-            right -= 1
-
-        if left >= right:
-            arr[left], arr[pivot] = arr[pivot], arr[left]
-            return left
-        else:
-            arr[left], arr[right] = arr[right], arr[left]
+            (arr[left], arr[right]) = (arr[right], arr[left])
+    (arr[pivot], arr[right]) = (arr[right], arr[pivot])
+    return left + 1
 
 
 
