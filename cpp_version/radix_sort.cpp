@@ -1,3 +1,4 @@
+#include "struct_my.h"
 //Worst Case Complexity in time: O(d(n+k))
 //Average Case Complexity in time: O((n+k))
 //Best Case Complexity in time: O(d(n+k))
@@ -11,16 +12,9 @@
 
 using namespace std;
 
-void print(vector<int> &vec)
-{
-    for_each(vec.begin(), vec.end(), [](int i)
-    {
-        cout << i << " ";
-    });
-    cout << endl;
-}
+static Count res;
 
-void CountSort(vector<int> &vec, int place)
+static void CountSort(vector<int> &vec, int place)
 {
     int len = vec.size();
     //和计数排序区别在于一个大小是max+1,一个是10
@@ -48,15 +42,18 @@ void CountSort(vector<int> &vec, int place)
     for (int i = len - 1; i >= 0; i--)
     {
         output[count_arr[(vec[i] / place) % 10] - 1] = vec[i];
+        res.move++;
         count_arr[(vec[i] / place) % 10]--;
     }
 
     vec = output;
+    res.move += len;
 }
 
-void RadixSort(vector<int> &vec)
+Count RadixSort(vector<int> &vec)
 {
     auto max_iter = max_element(vec.begin(), vec.end());
+    res.compare += vec.size() - 1;
     int max_val = *max_iter;
 
     //根据基数来排序
@@ -64,30 +61,6 @@ void RadixSort(vector<int> &vec)
     {
         CountSort(vec, place);
     }
+    return res;
 }
 
-int main(void)
-{
-    srand((unsigned)time(NULL));
-    vector<int> vec;
-    for (int i = 0; i < 15; ++i)
-    {
-        vec.push_back(static_cast<int>(rand() % (34 - 2 + 1) + 2));
-
-    }
-
-    cout << "Before sort:          ";
-    print(vec);
-
-    vector<int> vec2 = vec;
-    sort(vec2.begin(), vec2.end());
-    cout << "Use generic function: ";
-    print(vec2);
-
-    RadixSort(vec);
-
-    cout << "Use hand-by function: ";
-    print(vec);
-
-    return 0;
-}

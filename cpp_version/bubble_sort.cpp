@@ -6,18 +6,13 @@
 #include <vector>
 #include <algorithm>
 
+#include "struct_my.h"
+
 using namespace std;
 
-void print(vector<int> &vec)
-{
-    for_each(vec.begin(), vec.end(), [](int i)
-    {
-        cout << i << " ";
-    });
-    cout << endl;
-}
+static Count res;
 
-void BubbleSort(vector<int> &vec)
+Count BubbleSort(vector<int> &vec)
 {
     int len = vec.size();
     //控制第二个循环的长度
@@ -33,6 +28,8 @@ void BubbleSort(vector<int> &vec)
             {
                 swap(vec[j], vec[j + 1]);
                 flag = true;
+                res.compare++;
+                res.move += 3;
             }
         }
         //如果是没有交换过一次的,就是已排序的就直接退出
@@ -41,31 +38,5 @@ void BubbleSort(vector<int> &vec)
             break;
         }
     }
-}
-
-
-int main(void)
-{
-    srand((unsigned)time(NULL));
-    vector<int> vec;
-    for (int i = 0; i < 15; ++i)
-    {
-        vec.push_back(static_cast<int>(rand() % (34 - 2 + 1) + 2));
-
-    }
-
-    cout << "Before sort:          ";
-    print(vec);
-
-    vector<int> vec2 = vec;
-    sort(vec2.begin(), vec2.end());
-    cout << "Use generic function: ";
-    print(vec2);
-
-    BubbleSort(vec);
-
-    cout << "Use hand-by function: ";
-    print(vec);
-
-    return 0;
+    return res;
 }

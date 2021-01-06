@@ -11,9 +11,14 @@
 #include <vector>
 #include <algorithm>
 
+#include "struct_my.h"
+
 using namespace std;
 
-void InsertionSort(vector<int> &vec, int increment)
+
+static Count res;
+
+static void InsertionSort(vector<int> &vec, int increment)
 {
     int len = vec.size();
     for (int i = increment; i < len; i++)
@@ -22,57 +27,22 @@ void InsertionSort(vector<int> &vec, int increment)
         int temp = vec[i];
         while (gap >= increment && vec[gap - increment] > temp)
         {
+            res.compare++;
             vec[gap] = vec[gap - increment];
             gap -= increment;
+            res.move++;
         }
         vec[gap] = temp;
+        res.move++;
     }
 }
 
-void ShellSort(vector<int> &vec)
+Count ShellSort(vector<int> &vec)
 {
     //用增量控制
     for (int increment = vec.size() >> 1; increment > 0; increment >>= 1)
     {
         InsertionSort(vec, increment);
     }
-}
-
-int main(void)
-{
-    srand((unsigned)time(NULL));
-    vector<int> vec;
-    for (int i = 0; i < 15; ++i)
-    {
-        vec.push_back(static_cast<int>(rand() % (34 - 2 + 1) + 2));
-
-    }
-
-    cout << "Before sort:          ";
-    for (auto i : vec)
-    {
-        cout << i << " ";
-    }
-    cout << endl;
-
-    vector<int> vec2 = vec;
-    sort(vec2.begin(), vec2.end());
-    cout << "Use generic function: ";
-    for_each(vec2.begin(), vec2.end(), [](int i)
-    {
-        cout << i << " ";
-    });
-    cout << endl;
-
-    ShellSort(vec);
-
-    cout << "Use hand-by function: ";
-    for_each(vec.begin(), vec.end(), [](int i)
-    {
-        cout << i << " ";
-    });
-
-    cout << endl;
-
-    return 0;
+    return res;
 }

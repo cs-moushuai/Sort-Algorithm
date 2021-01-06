@@ -1,3 +1,4 @@
+#include "struct_my.h"
 //Worst Case Complexity in time: O(n^2)
 //Average Case Complexity in time: O(n^2)
 //Best Case Complexity in time: O(n^2)
@@ -8,16 +9,9 @@
 
 using namespace std;
 
-void print(vector<int> &vec)
-{
-    for_each(vec.begin(), vec.end(), [](int i)
-    {
-        cout << i << " ";
-    });
-    cout << endl;
-}
+static Count res;
 
-void SelectionSort(vector<int> &vec)
+Count SelectionSort(vector<int> &vec)
 {
     int len = vec.size();
     for (int i = 0; i < len - 1; i++)
@@ -30,38 +24,14 @@ void SelectionSort(vector<int> &vec)
             {
                 min = j;
             }
+            res.compare++;
         }
         //交换最小元素到数组头
         if (min != i)
         {
+            res.move += 3;
             swap(vec[min], vec[i]);
         }
     }
-}
-
-
-int main(void)
-{
-    srand((unsigned)time(NULL));
-    vector<int> vec;
-    for (int i = 0; i < 15; ++i)
-    {
-        vec.push_back(static_cast<int>(rand() % (34 - 2 + 1) + 2));
-
-    }
-
-    cout << "Before sort:          ";
-    print(vec);
-
-    vector<int> vec2 = vec;
-    sort(vec2.begin(), vec2.end());
-    cout << "Use generic function: ";
-    print(vec2);
-
-    SelectionSort(vec);
-
-    cout << "Use hand-by function: ";
-    print(vec);
-
-    return 0;
+    return res;
 }
