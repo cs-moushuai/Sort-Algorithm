@@ -11,7 +11,7 @@
 #include <vector>
 #include <algorithm>
 
-#include "struct_my.h"
+#include "header.h"
 
 using namespace std;
 

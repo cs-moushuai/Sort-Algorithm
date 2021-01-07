@@ -1,7 +1,8 @@
-#include "struct_my.h"
 #include <iostream>
 #include <vector>
 #include <algorithm>
+
+#include "header.h"
 
 using namespace std;
 

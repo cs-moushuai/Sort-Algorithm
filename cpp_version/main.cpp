@@ -3,7 +3,6 @@
 #include <algorithm>
 
 #include "header.h"
-#include "struct_my.h"
 
 using namespace std;
 

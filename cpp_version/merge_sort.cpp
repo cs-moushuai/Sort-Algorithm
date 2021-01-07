@@ -1,4 +1,3 @@
-#include "struct_my.h"
 //Worst Case Complexity in time: O(n^2)
 //Average Case Complexity in time: O(n*log n)
 //Best Case Complexity in time: O(n*log n)
@@ -10,6 +9,8 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
+
+#include "header.h"
 
 using namespace std;
 

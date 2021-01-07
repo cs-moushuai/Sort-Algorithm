@@ -1,6 +1,13 @@
 #pragma once
 
-#include "struct_my.h"
+#include <vector>
+
+struct Count
+{
+    int compare;
+    int move;
+    Count(int _compare = 0, int _move = 0): compare(_compare), move(_move) {}
+};
 
 Count MergeSort(std::vector<int> &);
 Count QuickSort(std::vector<int> &);
