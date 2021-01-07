@@ -10,6 +10,7 @@ static constexpr int kCutOff = 4;
 
 static Count res;
 
+
 static int Medium(vector<int> &vec, int left, int right)
 {
     int center = (left + right) / 2;
@@ -26,12 +27,14 @@ static int Medium(vector<int> &vec, int left, int right)
     {
         swap(vec[center], vec[right]);
     }
+    //将pivot设置到后面
     swap(vec[center], vec[right - 1]);
     return right - 1;
 }
 
 static int Partition(vector<int> &vec, int left, int right)
 {
+    //取中间点为pivot, 避免最坏情况弱化为冒泡排序
     int pivot = Medium(vec, left, right);
     right = pivot;
 
@@ -65,6 +68,7 @@ static int Partition(vector<int> &vec, int left, int right)
 
 static void InsertionSort(vector<int> &vec, int left, int right)
 {
+    //见插入排序部分解释(在其他文件)
     for (int i = left + 1; i < right + 1; i++)
     {
         int gap = i;
@@ -88,6 +92,7 @@ static void QuickSortImplement(vector<int> &vec, int left, int right)
     {
         if ( left + kCutOff < right )
         {
+            //分区,pivot为得到的枢点
             int pivot = Partition(vec, left, right);
 
             QuickSortImplement(vec, left, pivot - 1);
@@ -95,6 +100,7 @@ static void QuickSortImplement(vector<int> &vec, int left, int right)
         }
         else
         {
+            //长度较小的可以用insertion sort来优化
             InsertionSort(vec, left, right);
         }
     }
