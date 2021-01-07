@@ -18,17 +18,24 @@ static int Medium(vector<int> &vec, int left, int right)
     if(vec[left] > vec[center])
     {
         swap(vec[left], vec[center]);
+        res.move += 3;
     }
+    res.compare++;
     if(vec[left] > vec[right])
     {
         swap(vec[left], vec[right]);
+        res.move += 3;
     }
+    res.compare++;
     if(vec[center] > vec[right])
     {
         swap(vec[center], vec[right]);
+        res.move += 3;
     }
+    res.compare++;
     //将pivot设置到后面
     swap(vec[center], vec[right - 1]);
+    res.move += 3;
     return right - 1;
 }
 
