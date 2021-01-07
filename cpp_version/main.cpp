@@ -18,10 +18,13 @@ void print(vector<int> &vec)
 
 void Init()
 {
+    //设置种子
     srand((unsigned)time(NULL));
+    //循环5次
     for (int count = 0; count < 5; ++count)
     {
         vector<int> vec;
+        //生成随机数
         for (int i = 0; i < 120; ++i)
         {
             vec.push_back(static_cast<int>(rand() % (34 - 2 + 1) + 2));
@@ -33,6 +36,7 @@ void Init()
         print(vec);
 
         Count record;
+        //拷贝一份没有排过顺序的
         vector<int> vec1(vec);
         cout << "1).After QuickSort:       ";
         record = QuickSort(vec1);
